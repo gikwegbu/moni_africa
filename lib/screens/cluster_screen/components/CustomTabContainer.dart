@@ -51,6 +51,7 @@ class BuildTabBarItems extends StatelessWidget {
                   date: data[index]['date'],
                   loanStatus: data[index]['loanStatus'],
                   amount: data[index]['amount'],
+                  imgSrc: data[index]['image'],
                   type: type,
                 ),
               )
@@ -70,9 +71,10 @@ class TabItemContent extends StatelessWidget {
     required this.loanStatus,
     required this.type,
     required this.amount,
+    required this.imgSrc,
   }) : super(key: key);
 
-  final String username, loanStatus, type;
+  final String username, loanStatus, type, imgSrc;
   final DateTime date;
   final int amount;
 
@@ -87,7 +89,7 @@ class TabItemContent extends StatelessWidget {
             child: Row(
               children: [
                 BuildImageContainer(
-                  imgSrc: 'assets/images/donjazzy.png',
+                  imgSrc: imgSrc,
                 ),
                 SizedBox(width: getProportionateScreenWidth(16)),
                 Column(

@@ -16,6 +16,7 @@ class ChipText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
+        vertical: getProportionateScreenWidth(4),
         horizontal: getProportionateScreenWidth(8),
       ),
       decoration: BoxDecoration(

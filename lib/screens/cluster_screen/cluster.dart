@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../size_config.dart';
-import 'components/CustomTabContainer.dart';
 import 'components/chipText.dart';
+import 'components/clusterDetails.dart';
 import 'components/imageContainer.dart';
+import 'components/membersDetails.dart';
 
 class ClusterScreen extends StatefulWidget {
   const ClusterScreen({Key? key}) : super(key: key);
@@ -20,6 +20,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     {
       "id": "oiewjkflksadf",
       "username": "Florence Tanika",
+      "image": "assets/images/Florence.png",
       "date": DateTime.now(),
       "loanStatus": "overdue",
       "amount": 128948576
@@ -29,6 +30,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     {
       "id": "xcvghsdfwerqe",
       "username": "Tiamiyu Adzan",
+      "image": "assets/images/Tiamiyu.png",
       "date": DateTime.now(),
       "loanStatus": "due",
       "amount": 128948576
@@ -36,6 +38,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     {
       "id": "dsfgdfwerwq",
       "username": "Eze Tarka",
+      "image": "assets/images/Eze.png",
       "date": DateTime.now(),
       "loanStatus": "due",
       "amount": 128948576
@@ -45,6 +48,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     {
       "id": "olkvuoiajdja",
       "username": "Halima Yaya",
+      "image": "assets/images/Halima.png",
       "date": DateTime.now(),
       "loanStatus": "active",
       "amount": 128948576
@@ -52,6 +56,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     {
       "id": "kvcnm,mqkjelk",
       "username": "Uche Ngozi",
+      "image": "assets/images/Uche.png",
       "date": DateTime.now(),
       "loanStatus": "active",
       "amount": 128948576
@@ -59,6 +64,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     {
       "id": "oivjyby7eythdk",
       "username": "Anisa Lulu",
+      "image": "assets/images/Anisa.png",
       "date": DateTime.now(),
       "loanStatus": "active",
       "amount": 128948576
@@ -68,6 +74,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     {
       "id": "mczhjjdsasd",
       "username": "Rebecca Funto",
+      "image": "assets/images/Rebecca.png",
       "date": DateTime.now(),
       "loanStatus": "active",
       "amount": 128948576
@@ -75,6 +82,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     {
       "id": "lokvjhuidads",
       "username": "Absko Gandhi",
+      "image": "assets/images/Absko.png",
       "date": DateTime.now(),
       "loanStatus": "active",
       "amount": 128948576
@@ -82,6 +90,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     {
       "id": "cnhdsyuwjdsdad",
       "username": "Mensa Robert",
+      "image": "assets/images/Mensa.png",
       "date": DateTime.now(),
       "loanStatus": "active",
       "amount": 128948576
@@ -94,7 +103,13 @@ class _ClusterScreenState extends State<ClusterScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: getProportionateScreenHeight(332),
+            // expandedHeight: getProportionateScreenHeight(332),
+            // expandedHeight: SizeConfig.screenHeight > 700
+            //     ? getProportionateScreenHeight(332)
+            //     : getProportionateScreenHeight(490),
+            expandedHeight: SizeConfig.screenHeight > 700
+                ? SizeConfig.screenHeight * 0.43
+                : SizeConfig.screenHeight * 0.52,
             pinned: true,
             floating: true,
             backgroundColor: Colors.white,
@@ -120,7 +135,12 @@ class _ClusterScreenState extends State<ClusterScreen> {
                         right: getProportionateScreenWidth(10),
                         bottom: getProportionateScreenHeight(15),
                       ),
-                      color: Colors.teal,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/images/bg.png'),
+                        ),
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -178,7 +198,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
                                 ],
                               ),
                               BuildImageContainer(
-                                  imgSrc: 'assets/images/donjazzy.png'),
+                                  imgSrc: 'assets/images/Avatar.png'),
                             ],
                           ),
                           SizedBox(height: getProportionateScreenHeight(10)),
@@ -298,38 +318,17 @@ class _ClusterScreenState extends State<ClusterScreen> {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BuildTabBarItems(
-                    title: 'Overdue Loans',
-                    type: 'overDue',
-                    data: overDueLoans,
-                  ),
-                  BuildTabBarItems(
-                    title: 'Due Loans',
-                    type: 'due',
-                    data: dueLoans,
-                  ),
-                  BuildTabBarItems(
-                    title: 'Active Loans',
-                    type: 'active',
-                    data: activeLoans,
-                  ),
-                  BuildTabBarItems(
-                    title: 'Inactive Loans',
-                    type: 'inActive',
-                    data: inActiveLoans,
-                  ),
-                ],
-              ),
-            ),
-          ),
+          activeTab == 'members'
+              ? SliverToBoxAdapter(
+                  child: membersSliverAdapter(
+                      overDueLoans: overDueLoans,
+                      dueLoans: dueLoans,
+                      activeLoans: activeLoans,
+                      inActiveLoans: inActiveLoans),
+                )
+              : SliverToBoxAdapter(
+                  child: ClusterDetailsSliverAdapter(),
+                ),
         ],
       ),
     );

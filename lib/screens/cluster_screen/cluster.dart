@@ -96,6 +96,19 @@ class _ClusterScreenState extends State<ClusterScreen> {
       "amount": 128948576
     },
   ];
+
+  double expandHeight() {
+    double height = 0;
+    if (SizeConfig.screenHeight < 300) {
+      return SizeConfig.screenHeight + 15;
+    } else if (SizeConfig.screenHeight > 300 && SizeConfig.screenHeight < 500) {
+      return SizeConfig.screenHeight * 0.70;
+    } else if (SizeConfig.screenHeight > 500 && SizeConfig.screenHeight < 700) {
+      return SizeConfig.screenHeight * 0.55;
+    }
+    return SizeConfig.screenHeight * 0.43;
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -103,13 +116,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            // expandedHeight: getProportionateScreenHeight(332),
-            // expandedHeight: SizeConfig.screenHeight > 700
-            //     ? getProportionateScreenHeight(332)
-            //     : getProportionateScreenHeight(490),
-            expandedHeight: SizeConfig.screenHeight > 700
-                ? SizeConfig.screenHeight * 0.43
-                : SizeConfig.screenHeight * 0.52,
+            expandedHeight: expandHeight(),
             pinned: true,
             floating: true,
             backgroundColor: Colors.white,

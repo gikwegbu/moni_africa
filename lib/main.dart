@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:moni_africa/provider/nav_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:moni_africa/theme.dart';
 
 import 'routes.dart';
@@ -21,17 +19,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => NavBarProvider()),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Moni_Africa',
-        theme: themeData(),
-        home: const ClusterScreen(),
-        routes: routes,
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Moni_Africa',
+      theme: themeData(),
+      home: const ClusterScreen(),
+      routes: routes,
     );
   }
 }
